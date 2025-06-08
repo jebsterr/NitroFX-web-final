@@ -495,7 +495,93 @@ const ProductCard = ({ product }) => {
   );
 };
 
-// Products Page Component
+// Contact Us Page Component
+const ContactPage = () => {
+  const socialLinks = [
+    { name: 'Discord', icon: '💬', url: 'https://discord.gg/your-server', description: 'Join our community server' },
+    { name: 'TikTok', icon: '🎵', url: '#', description: 'Follow us for lighting tips' },
+    { name: 'YouTube', icon: '📺', url: '#', description: 'Watch product demonstrations' },
+    { name: 'Twitter/X', icon: '🐦', url: '#', description: 'Latest updates and news' },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Contact <span className="text-blue-400">Us</span>
+          </h1>
+          <p className="text-xl text-gray-400">Get in touch with the NITRO Lighting team</p>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Social Media Links */}
+          <div className="space-y-8">
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-6">Connect With Us</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {socialLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300 transform hover:scale-105 group"
+                  >
+                    <div className="flex items-center space-x-4 mb-3">
+                      <span className="text-3xl">{link.icon}</span>
+                      <h3 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">
+                        {link.name}
+                      </h3>
+                    </div>
+                    <p className="text-gray-400 text-sm">{link.description}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+            
+            {/* Contact Information */}
+            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-4">Get Support</h3>
+              <div className="space-y-3 text-gray-300">
+                <div className="flex items-center space-x-3">
+                  <span className="text-blue-400">📧</span>
+                  <span>support@nitrolighting.com</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-blue-400">📞</span>
+                  <span>+1 (555) 123-4567</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-blue-400">🕒</span>
+                  <span>24/7 Support Available</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Discord Embed */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+              <h2 className="text-2xl font-bold text-white mb-4 text-center">Join Our Discord Community</h2>
+              <div className="flex justify-center">
+                <iframe 
+                  src="https://discord.com/widget?id=1301201863881920602&theme=dark" 
+                  width="350" 
+                  height="500" 
+                  allowtransparency="true" 
+                  frameborder="0" 
+                  sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                  className="rounded-lg"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 const ProductsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
