@@ -133,9 +133,10 @@ const Navbar = ({ activeRoute, setActiveRoute }) => {
               alt="Nitro Lighting Logo"
               className="w-8 h-8 rounded-full"
             />
-            <div className="text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer"
+            <div className="font-bold text-white hover:text-blue-400 transition-colors cursor-pointer flex flex-col leading-none"
                  onClick={() => setActiveRoute('home')}>
-              <span className="text-blue-400">NITRO</span> Lighting
+              <span className="text-blue-400 text-lg">NITRO</span>
+              <span className="text-white text-sm">Lighting</span>
             </div>
           </div>
           
