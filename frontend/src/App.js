@@ -187,6 +187,13 @@ const Navbar = ({ activeRoute, setActiveRoute }) => {
               }`}>
               Products
             </button>
+            <button 
+              onClick={() => setActiveRoute('contact')}
+              className={`text-sm font-medium transition-all duration-300 hover:text-blue-400 ${
+                activeRoute === 'contact' ? 'text-blue-400' : 'text-gray-300'
+              }`}>
+              Contact Us
+            </button>
           </div>
           
           <button className="md:hidden text-gray-300 hover:text-white">
