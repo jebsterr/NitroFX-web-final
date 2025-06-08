@@ -9,88 +9,120 @@ const PRODUCTS = [
     name: "ProLaser X1 Moving Head",
     description: "Professional RGB laser with precise beam control and DMX compatibility. Perfect for large venues and concerts.",
     price: 2499,
+    altPrice: "€2,299",
+    altCurrency: "EUR",
     category: "laser",
     tags: ["Professional", "DMX", "RGB", "High Power"],
     image: "https://images.unsplash.com/photo-1573339887617-d674bc961c31",
     featured: true,
-    isNew: true
+    isNew: true,
+    productHubLink: "https://example.com/prolaser-x1", // Edit this link
+    paypalLink: "https://paypal.me/your-account/2299" // Edit this PayPal link
   },
   {
     id: 2,
     name: "StageWash Pro 360",
     description: "High-output LED wash light with 360-degree rotation and color mixing capabilities.",
     price: 1299,
+    altPrice: "€1,199",
+    altCurrency: "EUR",
     category: "wash",
     tags: ["LED", "Color Mixing", "360°", "Energy Efficient"],
     image: "https://images.unsplash.com/photo-1558620013-a08999547a36",
     featured: false,
-    isNew: true
+    isNew: true,
+    productHubLink: "https://example.com/stagewash-pro",
+    paypalLink: "https://paypal.me/your-account/1199"
   },
   {
     id: 3,
     name: "BlindMax 4000 Array",
     description: "Intense LED blinder array with individual pixel control and strobe effects.",
     price: 899,
+    altPrice: "€829",
+    altCurrency: "EUR",
     category: "blinder",
     tags: ["LED Array", "Pixel Control", "Strobe", "Compact"],
     image: "https://images.unsplash.com/photo-1558266253-a70a709358c6",
     featured: false,
-    isNew: false
+    isNew: false,
+    productHubLink: "https://example.com/blindmax-4000",
+    paypalLink: "https://paypal.me/your-account/829"
   },
   {
     id: 4,
     name: "MoveHead Elite 500",
     description: "Precision moving head with gobos, prisms, and advanced positioning system.",
     price: 1899,
+    altPrice: "€1,749",
+    altCurrency: "EUR",
     category: "moving head",
     tags: ["Gobos", "Prisms", "Precision", "Professional"],
     image: "https://images.pexels.com/photos/7598535/pexels-photo-7598535.jpeg",
     featured: false,
-    isNew: true
+    isNew: true,
+    productHubLink: "https://example.com/movehead-elite",
+    paypalLink: "https://paypal.me/your-account/1749"
   },
   {
     id: 5,
     name: "LaserBeam RGB Pro",
     description: "Compact RGB laser projector with pattern effects and sound activation.",
     price: 799,
+    altPrice: "€739",
+    altCurrency: "EUR",
     category: "laser",
     tags: ["RGB", "Patterns", "Sound Active", "Compact"],
     image: "https://images.pexels.com/photos/7351136/pexels-photo-7351136.jpeg",
     featured: false,
-    isNew: false
+    isNew: false,
+    productHubLink: "https://example.com/laserbeam-rgb",
+    paypalLink: "https://paypal.me/your-account/739"
   },
   {
     id: 6,
     name: "WashLight Supreme",
     description: "Premium wash light with RGBW LEDs and wireless DMX connectivity.",
     price: 1599,
+    altPrice: "€1,479",
+    altCurrency: "EUR",
     category: "wash",
     tags: ["RGBW", "Wireless DMX", "Premium", "Long Range"],
     image: "https://images.pexels.com/photos/7598668/pexels-photo-7598668.jpeg",
-    featured: false,
-    isNew: true
+    featured: true,
+    isNew: true,
+    productHubLink: "https://example.com/washlight-supreme",
+    paypalLink: "https://paypal.me/your-account/1479"
   },
   {
     id: 7,
     name: "BlindStorm Matrix",
     description: "Matrix blinder with individual cell control and chase effects.",
     price: 1199,
+    altPrice: "€1,109",
+    altCurrency: "EUR",
     category: "blinder",
     tags: ["Matrix", "Cell Control", "Chase Effects", "High Impact"],
     image: "https://images.pexels.com/photos/7671467/pexels-photo-7671467.jpeg",
     featured: false,
-    isNew: false
+    isNew: false,
+    productHubLink: "https://example.com/blindstorm-matrix",
+    paypalLink: "https://paypal.me/your-account/1109"
   },
   {
     id: 8,
     name: "MoveSpot Ultimate",
     description: "Ultimate moving head spotlight with zoom, focus, and color wheel.",
     price: 2299,
+    altPrice: "€2,129",
+    altCurrency: "EUR",
     category: "moving head",
     tags: ["Zoom", "Focus", "Color Wheel", "Spotlight"],
     image: "https://images.unsplash.com/photo-1598387846101-b5e6738c6e67",
     featured: false,
-    isNew: true
+    isNew: true,
+    productHubLink: "https://example.com/movespot-ultimate",
+    paypalLink: "https://paypal.me/your-account/2129"
   }
 ];
 
