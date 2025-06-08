@@ -34,7 +34,7 @@ const PRODUCTS = [
     category: "blinder",
     tags: ["LED Array", "Pixel Control", "Strobe", "Compact"],
     image: "https://images.unsplash.com/photo-1558266253-a70a709358c6",
-    featured: true,
+    featured: false,
     isNew: false
   },
   {
@@ -67,7 +67,7 @@ const PRODUCTS = [
     category: "wash",
     tags: ["RGBW", "Wireless DMX", "Premium", "Long Range"],
     image: "https://images.pexels.com/photos/7598668/pexels-photo-7598668.jpeg",
-    featured: true,
+    featured: false,
     isNew: true
   },
   {
@@ -104,7 +104,6 @@ const CATEGORIES = [
 
 // Navbar Component
 const Navbar = ({ activeRoute, setActiveRoute }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -115,16 +114,28 @@ const Navbar = ({ activeRoute, setActiveRoute }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToFeatured = () => {
+    const featuredSection = document.getElementById('featured-product');
+    if (featuredSection) {
+      featuredSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${
       isScrolled ? 'bg-black/95 backdrop-blur-md border-b border-gray-800' : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            <img 
+              src="https://images.unsplash.com/photo-1707061229211-25325f7134ce" 
+              alt="Nitro Lighting Logo"
+              className="w-8 h-8 rounded-full"
+            />
             <div className="text-2xl font-bold text-white hover:text-blue-400 transition-colors cursor-pointer"
                  onClick={() => setActiveRoute('home')}>
-              <span className="text-blue-400">Light</span>Tech
+              <span className="text-blue-400">NITRO</span> Lighting
             </div>
           </div>
           
@@ -143,39 +154,6 @@ const Navbar = ({ activeRoute, setActiveRoute }) => {
               }`}>
               Products
             </button>
-            
-            <div className="relative">
-              <button 
-                onMouseEnter={() => setIsDropdownOpen(true)}
-                onMouseLeave={() => setIsDropdownOpen(false)}
-                className="text-sm font-medium text-gray-300 hover:text-blue-400 transition-colors flex items-center space-x-1">
-                <span>Categories</span>
-                <svg className={`w-4 h-4 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} 
-                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              <div 
-                onMouseEnter={() => setIsDropdownOpen(true)}
-                onMouseLeave={() => setIsDropdownOpen(false)}
-                className={`absolute top-8 left-0 w-48 bg-gray-900/95 backdrop-blur-md border border-gray-700 rounded-lg shadow-xl transition-all duration-300 ${
-                  isDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
-                }`}>
-                {CATEGORIES.slice(1).map((category) => (
-                  <button
-                    key={category.id}
-                    className="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-gray-800 transition-colors flex items-center space-x-2"
-                    onClick={() => {
-                      setActiveRoute('products');
-                      setIsDropdownOpen(false);
-                    }}>
-                    <span>{category.icon}</span>
-                    <span>{category.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
           
           <button className="md:hidden text-gray-300 hover:text-white">
@@ -190,7 +168,7 @@ const Navbar = ({ activeRoute, setActiveRoute }) => {
 };
 
 // Hero Section Component
-const HeroSection = () => {
+const HeroSection = ({ scrollToFeatured }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroImages = [
     "https://images.unsplash.com/photo-1558266253-a70a709358c6",
@@ -229,13 +207,14 @@ const HeroSection = () => {
       <div className="relative z-10 h-full flex items-center justify-center text-center px-4">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in-up">
-            Illuminate Your
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"> Vision</span>
+            <span className="text-blue-400">NITRO</span> Lighting
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-fade-in-up animation-delay-300">
             Professional stage lighting equipment for concerts, events, and installations
           </p>
-          <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-600">
+          <button 
+            onClick={scrollToFeatured}
+            className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-medium hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-600">
             Explore Products
           </button>
         </div>
@@ -251,59 +230,68 @@ const HeroSection = () => {
   );
 };
 
-// Featured Products Section
-const FeaturedProducts = ({ setActiveRoute }) => {
-  const featuredProducts = PRODUCTS.filter(product => product.isNew).slice(0, 3);
+// Featured Product Section
+const FeaturedProductSection = ({ setActiveRoute }) => {
+  const featuredProduct = PRODUCTS.find(product => product.featured);
   
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+    <section id="featured-product" className="py-20 bg-gradient-to-b from-black to-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Latest <span className="text-blue-400">Arrivals</span>
+            Featured <span className="text-blue-400">Product</span>
           </h2>
-          <p className="text-xl text-gray-400">Discover our newest professional lighting equipment</p>
+          <p className="text-xl text-gray-400">Discover our flagship lighting equipment</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {featuredProducts.map((product, index) => (
-            <div 
-              key={product.id}
-              className="group bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
-              style={{ animationDelay: `${index * 200}ms` }}>
-              <div className="relative overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gradient-to-r from-green-500 to-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    NEW
-                  </span>
-                </div>
-                <div className="absolute top-4 right-4">
-                  <span className="bg-black/70 text-blue-400 px-2 py-1 rounded text-xs font-medium">
-                    {CATEGORIES.find(cat => cat.id === product.category)?.name}
-                  </span>
-                </div>
-              </div>
+        {featuredProduct && (
+          <div className="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-all duration-500 max-w-6xl mx-auto">
+            <div className="relative h-96 md:h-[500px] overflow-hidden">
+              <img 
+                src={featuredProduct.image} 
+                alt={featuredProduct.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
               
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
-                  {product.name}
-                </h3>
-                <p className="text-gray-400 mb-4 line-clamp-2">{product.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-blue-400">${product.price}</span>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
-                    View Details
-                  </button>
+              {/* Content Overlay */}
+              <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
+                <div className="max-w-2xl">
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                    {featuredProduct.name}
+                  </h3>
+                  <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
+                    {featuredProduct.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {featuredProduct.tags.map((tag, index) => (
+                      <span key={index} className="bg-blue-600/80 text-white px-3 py-1 rounded-full text-sm font-medium">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end">
+                  <div className="mb-4 md:mb-0">
+                    <span className="text-4xl md:text-5xl font-bold text-blue-400">
+                      ${featuredProduct.price}
+                    </span>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                      Add to Cart
+                    </button>
+                    <button className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-all duration-300">
+                      Learn More
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
         
         <div className="text-center mt-12">
           <button 
@@ -314,6 +302,88 @@ const FeaturedProducts = ({ setActiveRoute }) => {
         </div>
       </div>
     </section>
+  );
+};
+
+// Footer Component
+const Footer = () => {
+  const socialLinks = [
+    { name: 'Discord', icon: '💬', url: '#' },
+    { name: 'TikTok', icon: '🎵', url: '#' },
+    { name: 'YouTube', icon: '📺', url: '#' },
+    { name: 'Twitter/X', icon: '🐦', url: '#' },
+  ];
+
+  const supportLinks = [
+    { name: 'Installation Guide', url: '#' },
+    { name: 'Technical Support', url: '#' },
+    { name: 'Contact Us', url: '#' },
+  ];
+
+  return (
+    <footer className="bg-gray-900 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Company Info */}
+          <div>
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="https://images.unsplash.com/photo-1707061229211-25325f7134ce" 
+                alt="Nitro Lighting Logo"
+                className="w-8 h-8 rounded-full"
+              />
+              <h3 className="text-xl font-bold text-white">
+                <span className="text-blue-400">NITRO</span> Lighting
+              </h3>
+            </div>
+            <p className="text-gray-400 leading-relaxed">
+              Leading provider of professional stage lighting equipment for concerts, events, and installations. 
+              We deliver cutting-edge lighting solutions that illuminate your vision with precision and creativity.
+            </p>
+          </div>
+
+          {/* Media Links */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-4">Media</h4>
+            <div className="space-y-2">
+              {socialLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.url}
+                  className="flex items-center space-x-3 text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  <span className="text-lg">{link.icon}</span>
+                  <span>{link.name}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Support Links */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-4">Support</h4>
+            <div className="space-y-2">
+              {supportLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.url}
+                  className="block text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Copyright */}
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+          <p className="text-gray-500">
+            © 2025 NITRO Lighting. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 };
 
@@ -371,6 +441,7 @@ const ProductsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [filteredProducts, setFilteredProducts] = useState(PRODUCTS);
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
 
   useEffect(() => {
     let filtered = PRODUCTS;
@@ -389,6 +460,8 @@ const ProductsPage = () => {
     
     setFilteredProducts(filtered);
   }, [searchTerm, selectedCategory]);
+
+  const selectedCategoryData = CATEGORIES.find(cat => cat.id === selectedCategory);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pt-20">
@@ -416,19 +489,37 @@ const ProductsPage = () => {
               </svg>
             </div>
             
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-                    selectedCategory === category.id
-                      ? 'bg-blue-600 text-white shadow-lg'
-                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
-                  }`}>
-                  {category.icon} {category.name}
-                </button>
-              ))}
+            {/* Category Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
+                className="bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors flex items-center space-x-2 min-w-[200px] justify-between">
+                <span className="flex items-center space-x-2">
+                  <span>{selectedCategoryData?.icon}</span>
+                  <span>{selectedCategoryData?.name}</span>
+                </span>
+                <svg className={`w-4 h-4 transition-transform duration-300 ${isCategoryDropdownOpen ? 'rotate-180' : ''}`} 
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <div className={`absolute top-14 left-0 w-full bg-gray-800 border border-gray-600 rounded-lg shadow-xl transition-all duration-300 z-10 ${
+                isCategoryDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              }`}>
+                {CATEGORIES.map((category) => (
+                  <button
+                    key={category.id}
+                    className="w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-700 transition-colors flex items-center space-x-2 first:rounded-t-lg last:rounded-b-lg"
+                    onClick={() => {
+                      setSelectedCategory(category.id);
+                      setIsCategoryDropdownOpen(false);
+                    }}>
+                    <span>{category.icon}</span>
+                    <span>{category.name}</span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -453,10 +544,18 @@ const ProductsPage = () => {
 
 // Home Page Component
 const HomePage = ({ setActiveRoute }) => {
+  const scrollToFeatured = () => {
+    const featuredSection = document.getElementById('featured-product');
+    if (featuredSection) {
+      featuredSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="bg-black">
-      <HeroSection />
-      <FeaturedProducts setActiveRoute={setActiveRoute} />
+      <HeroSection scrollToFeatured={scrollToFeatured} />
+      <FeaturedProductSection setActiveRoute={setActiveRoute} />
+      <Footer />
     </div>
   );
 };
@@ -470,7 +569,12 @@ function App() {
       <Navbar activeRoute={activeRoute} setActiveRoute={setActiveRoute} />
       
       {activeRoute === 'home' && <HomePage setActiveRoute={setActiveRoute} />}
-      {activeRoute === 'products' && <ProductsPage />}
+      {activeRoute === 'products' && (
+        <>
+          <ProductsPage />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
