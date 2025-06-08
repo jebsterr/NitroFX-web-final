@@ -466,9 +466,18 @@ const ProductCard = ({ product }) => {
         
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold text-blue-400">${product.price}</span>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-sm">
-            Add to Cart
-          </button>
+          <div className="flex flex-col gap-2">
+            <button 
+              onClick={() => window.open(product.productHubLink, '_blank')}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors text-sm">
+              Product Hub
+            </button>
+            <button 
+              onClick={() => window.open(product.paypalLink, '_blank')}
+              className="bg-white hover:bg-gray-100 text-black px-4 py-2 rounded-lg transition-colors text-sm border border-gray-300 font-medium">
+              {product.altPrice}
+            </button>
+          </div>
         </div>
       </div>
     </div>
