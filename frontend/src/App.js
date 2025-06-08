@@ -338,8 +338,9 @@ const Footer = () => {
                 alt="Nitro Lighting Logo"
                 className="w-8 h-8 rounded-full"
               />
-              <h3 className="text-xl font-bold text-white">
-                <span className="text-blue-400">NITRO</span> Lighting
+              <h3 className="font-bold text-white flex flex-col leading-none">
+                <span className="text-blue-400 text-lg">NITRO</span>
+                <span className="text-white text-sm">Lighting</span>
               </h3>
             </div>
             <p className="text-gray-400 leading-relaxed">
