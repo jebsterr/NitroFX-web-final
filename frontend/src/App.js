@@ -720,6 +720,12 @@ function App() {
           <Footer />
         </>
       )}
+      {activeRoute === 'contact' && (
+        <>
+          <ContactPage />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }
