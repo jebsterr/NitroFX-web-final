@@ -207,11 +207,16 @@ const HeroSection = ({ scrollToFeatured }) => {
       {/* Content */}
       <div className="relative z-10 h-full flex items-center justify-center text-center px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in-up">
-            <span className="text-blue-400">NITRO</span> Lighting
+          <h1 className="font-bold text-white mb-4 animate-fade-in-up flex flex-col leading-none">
+            <span className="text-blue-400 text-6xl md:text-8xl">NITRO</span>
+            <span className="text-white text-6xl md:text-8xl">LIGHTING</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-fade-in-up animation-delay-300">
-            Professional stage lighting equipment for concerts, events, and installations
+          <h2 className="text-2xl md:text-3xl text-gray-300 mb-2 animate-fade-in-up animation-delay-200">
+            The Power Of <span className="text-blue-400">LIGHTING</span>
+          </h2>
+          <p className="text-lg md:text-xl text-gray-400 mb-8 animate-fade-in-up animation-delay-300 max-w-3xl mx-auto">
+            Transform your Roblox EDM experiences with professional-grade lighting systems. 
+            From powerful wash lights to dynamic moving heads, we deliver the energy your events deserve.
           </p>
           <button 
             onClick={scrollToFeatured}
