@@ -318,11 +318,15 @@ const FeaturedProductSection = ({ setActiveRoute }) => {
                   </div>
                   
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                      Add to Cart
+                    <button 
+                      onClick={() => window.open(featuredProduct.productHubLink, '_blank')}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                      Product Hub
                     </button>
-                    <button className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-all duration-300">
-                      Learn More
+                    <button 
+                      onClick={() => window.open(featuredProduct.paypalLink, '_blank')}
+                      className="bg-white hover:bg-gray-100 text-black px-6 py-3 rounded-lg font-medium transition-all duration-300 border border-gray-300">
+                      {featuredProduct.altPrice}
                     </button>
                   </div>
                 </div>
