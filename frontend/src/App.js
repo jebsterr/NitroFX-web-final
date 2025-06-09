@@ -2,136 +2,137 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// Mock product data for lighting equipment
+// Mock product data for products
 const PRODUCTS = [
   {
     id: 1,
-    name: "ProLaser X1 Moving Head",
-    description: "Professional RGB laser with precise beam control and DMX compatibility. Perfect for large venues and concerts.",
-    price: 2499,
-    altPrice: "€2,299",
-    altCurrency: "EUR",
-    category: "laser",
-    tags: ["Professional", "DMX", "RGB", "High Power"],
-    image: "https://images.unsplash.com/photo-1573339887617-d674bc961c31",
-    featured: true,
-    isNew: true,
-    productHubLink: "https://example.com/prolaser-x1", // Edit this link
-    paypalLink: "https://paypal.me/your-account/2299" // Edit this PayPal link
+    name: "Example product 1",
+    description: "Description example",
+    price: 2499, // robux price
+    altPrice: "€2,299", // alternate price
+    altCurrency: "EUR", // alternate currency (white button) -- kinda irrelevant
+    category: "laser", // category, shows top left of product card, and in the category drop-down
+    tags: ["tag1", "tag2", "tag3", "tag4"], // tags that show on the product card
+    image: "logo.png", // image displayed on the product card
+    featured: true, // this product will show on the landing page, limited to only 1. if multiple are :true then 1st one will show.
+    isNew: true, // this will display the "NEW" tag in the top-right of the product card.
+    productHubLink: "https://example.com/rblxhublink", // Edit this link
+    paypalLink: "https://paypal.com" // Edit this PayPal link
   },
   {
     id: 2,
-    name: "StageWash Pro 360",
-    description: "High-output LED wash light with 360-degree rotation and color mixing capabilities.",
+    name: "Example product 2",
+    description: "Description example",
     price: 1299,
     altPrice: "€1,199",
     altCurrency: "EUR",
     category: "wash",
-    tags: ["LED", "Color Mixing", "360°", "Energy Efficient"],
-    image: "https://images.unsplash.com/photo-1558620013-a08999547a36",
+    tags: ["tag1", "tag2", "tag3", "tag4"],
+    image: "logo.png",
     featured: false,
     isNew: true,
-    productHubLink: "https://example.com/stagewash-pro",
-    paypalLink: "https://paypal.me/your-account/1199"
+    productHubLink: "https://example.com/rblxhublink",
+    paypalLink: "https://paypal.com"
   },
   {
     id: 3,
-    name: "BlindMax 4000 Array",
-    description: "Intense LED blinder array with individual pixel control and strobe effects.",
+    name: "Example product 3",
+    description: "Description example",
     price: 899,
     altPrice: "€829",
     altCurrency: "EUR",
     category: "blinder",
-    tags: ["LED Array", "Pixel Control", "Strobe", "Compact"],
-    image: "https://images.unsplash.com/photo-1558266253-a70a709358c6",
+    tags: ["tag1", "tag2", "tag3", "tag4"],
+    image: "logo.png",
     featured: false,
     isNew: false,
-    productHubLink: "https://example.com/blindmax-4000",
-    paypalLink: "https://paypal.me/your-account/829"
+    productHubLink: "https://example.com/rblxhublink",
+    paypalLink: "https://paypal.com"
   },
   {
     id: 4,
-    name: "MoveHead Elite 500",
-    description: "Precision moving head with gobos, prisms, and advanced positioning system.",
+    name: "Example product 4",
+    description: "Description example",
     price: 1899,
     altPrice: "€1,749",
     altCurrency: "EUR",
     category: "moving head",
-    tags: ["Gobos", "Prisms", "Precision", "Professional"],
-    image: "https://images.pexels.com/photos/7598535/pexels-photo-7598535.jpeg",
+    tags: ["tag1", "tag2", "tag3", "tag4"],
+    image: "logo.png",
     featured: false,
     isNew: true,
-    productHubLink: "https://example.com/movehead-elite",
-    paypalLink: "https://paypal.me/your-account/1749"
+    productHubLink: "https://example.com/rblxhublink",
+    paypalLink: "https://paypal.com"
   },
   {
     id: 5,
-    name: "LaserBeam RGB Pro",
-    description: "Compact RGB laser projector with pattern effects and sound activation.",
+    name: "Example product 5",
+    description: "Description example",
     price: 799,
     altPrice: "€739",
     altCurrency: "EUR",
     category: "laser",
-    tags: ["RGB", "Patterns", "Sound Active", "Compact"],
-    image: "https://images.pexels.com/photos/7351136/pexels-photo-7351136.jpeg",
+    tags: ["tag1", "tag2", "tag3", "tag4"],
+    image: "logo.png",
     featured: false,
     isNew: false,
-    productHubLink: "https://example.com/laserbeam-rgb",
-    paypalLink: "https://paypal.me/your-account/739"
+    productHubLink: "https://example.com/rblxhublink",
+    paypalLink: "https://paypal.com"
   },
   {
     id: 6,
-    name: "WashLight Supreme",
-    description: "Premium wash light with RGBW LEDs and wireless DMX connectivity.",
+    name: "Example product 6",
+    description: "Description example",
     price: 1599,
     altPrice: "€1,479",
     altCurrency: "EUR",
     category: "wash",
-    tags: ["RGBW", "Wireless DMX", "Premium", "Long Range"],
-    image: "https://images.pexels.com/photos/7598668/pexels-photo-7598668.jpeg",
+    tags: ["tag1", "tag2", "tag3", "tag4"],
+    image: "logo.png",
     featured: true,
     isNew: true,
-    productHubLink: "https://example.com/washlight-supreme",
-    paypalLink: "https://paypal.me/your-account/1479"
+    productHubLink: "https://example.com/rblxhublink",
+    paypalLink: "https://paypal.com"
   },
   {
     id: 7,
-    name: "BlindStorm Matrix",
-    description: "Matrix blinder with individual cell control and chase effects.",
+    name: "Example product 7",
+    description: "Description example",
     price: 1199,
     altPrice: "€1,109",
     altCurrency: "EUR",
     category: "blinder",
-    tags: ["Matrix", "Cell Control", "Chase Effects", "High Impact"],
-    image: "https://images.pexels.com/photos/7671467/pexels-photo-7671467.jpeg",
+    tags: ["tag1", "tag2", "tag3", "tag4"],
+    image: "logo.png",
     featured: false,
     isNew: false,
-    productHubLink: "https://example.com/blindstorm-matrix",
-    paypalLink: "https://paypal.me/your-account/1109"
+    productHubLink: "https://example.com/rblxhublink",
+    paypalLink: "https://paypal.com"
   },
   {
     id: 8,
-    name: "MoveSpot Ultimate",
-    description: "Ultimate moving head spotlight with zoom, focus, and color wheel.",
+    name: "Example product 8",
+    description: "Description example",
     price: 2299,
     altPrice: "€2,129",
     altCurrency: "EUR",
     category: "moving head",
-    tags: ["Zoom", "Focus", "Color Wheel", "Spotlight"],
-    image: "https://images.unsplash.com/photo-1598387846101-b5e6738c6e67",
+    tags: ["tag1", "tag2", "tag3", "tag4"],
+    image: "logo.png",
     featured: false,
     isNew: true,
-    productHubLink: "https://example.com/movespot-ultimate",
-    paypalLink: "https://paypal.me/your-account/2129"
+    productHubLink: "https://example.com/rblxhublink",
+    paypalLink: "https://paypal.com"
   }
 ];
 
 const CATEGORIES = [
-  { id: "all", name: "All Products", icon: "🔥" },
-  { id: "moving head", name: "Moving Head", icon: "🎯" },
-  { id: "laser", name: "Laser", icon: "⚡" },
-  { id: "wash", name: "Wash", icon: "🌈" },
-  { id: "blinder", name: "Blinder", icon: "💡" }
+  { id: "all", name: "All Products", icon: "" },
+  { id: "New Products", name: "New Products", icon: "" },
+  { id: "moving head", name: "Moving Head", icon: "" },
+  { id: "laser", name: "Laser", icon: "" },
+  { id: "wash", name: "Wash", icon: "" },
+  { id: "blinder", name: "Blinder", icon: "" }
 ];
 
 // Navbar Component
@@ -161,7 +162,7 @@ const Navbar = ({ activeRoute, setActiveRoute }) => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-3">
             <img 
-              src="https://images.unsplash.com/photo-1707061229211-25325f7134ce" 
+              src="logo.png" 
               alt="Nitro Lighting Logo"
               className="w-8 h-8 rounded-full"
             />
@@ -211,9 +212,8 @@ const Navbar = ({ activeRoute, setActiveRoute }) => {
 const HeroSection = ({ scrollToFeatured }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroImages = [
-    "https://images.unsplash.com/photo-1558266253-a70a709358c6",
-    "https://images.unsplash.com/photo-1598387846101-b5e6738c6e67",
-    "https://images.unsplash.com/photo-1558620013-a08999547a36"
+    "logo.png",
+    "logo.png"
   ];
 
   useEffect(() => {
@@ -286,7 +286,7 @@ const FeaturedProductSection = ({ setActiveRoute }) => {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Featured <span className="text-blue-400">Product</span>
           </h2>
-          <p className="text-xl text-gray-400">Discover our flagship lighting equipment</p>
+          <p className="text-xl text-gray-400">Discover our lighting equipment</p>
         </div>
         
         {featuredProduct && (
@@ -353,20 +353,21 @@ const FeaturedProductSection = ({ setActiveRoute }) => {
     </section>
   );
 };
-
+// @j e b s t e r r wrote this
 // Footer Component
 const Footer = () => {
   const socialLinks = [
-    { name: 'Discord', icon: '💬', url: '#' },
-    { name: 'TikTok', icon: '🎵', url: '#' },
-    { name: 'YouTube', icon: '📺', url: '#' },
-    { name: 'Twitter/X', icon: '🐦', url: '#' },
+    { name: 'Roblox Group', icon: '', url: 'https://www.roblox.com/communities/32516652/Nitro-Lighting#!/about' },
+    { name: 'Discord', icon: '', url: 'https://discord.gg/qXymNbtpXn' },
+    { name: 'TikTok', icon: '', url: '#' },
+    { name: 'YouTube', icon: '', url: '#' },
+    { name: 'X', icon: '', url: '#' },
   ];
 
   const supportLinks = [
     { name: 'Installation Guide', url: '#' },
-    { name: 'Technical Support', url: '#' },
-    { name: 'Contact Us', url: '#' },
+    { name: 'Technical Support', url: 'https://discord.gg/qXymNbtpXn' },
+    { name: 'Contact Us', url: 'https://discord.gg/qXymNbtpXn' },
   ];
 
   return (
@@ -377,7 +378,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <img 
-                src="https://images.unsplash.com/photo-1707061229211-25325f7134ce" 
+                src="logo.png" 
                 alt="Nitro Lighting Logo"
                 className="w-8 h-8 rounded-full"
               />
@@ -387,8 +388,8 @@ const Footer = () => {
               </h3>
             </div>
             <p className="text-gray-400 leading-relaxed">
-              Leading provider of professional stage lighting equipment for concerts, events, and installations. 
-              We deliver cutting-edge lighting solutions that illuminate your vision with precision and creativity.
+              Nitro Lighting is a Roblox Lighting company dedicated to providing top-notch products for the Roblox community.
+              Founded with a comitment to quality and affordability, Nitro Lighting offers a wide range of products, including Stage Lighting, Venues, Maps, Stages, and Pyrotechnics
             </p>
           </div>
 
@@ -436,6 +437,7 @@ const Footer = () => {
     </footer>
   );
 };
+// @jeb sterr wrote this
 
 // Product Card Component
 const ProductCard = ({ product }) => {
@@ -474,9 +476,9 @@ const ProductCard = ({ product }) => {
             </span>
           ))}
         </div>
-        
+
         <div className="flex justify-between items-center">
-          <span className="text-xl font-bold text-blue-400">${product.price}</span>
+          <span className="text-xl font-bold text-blue-400">R${product.price}</span>
           <div className="flex gap-2">
             <button 
               onClick={() => window.open(product.productHubLink, '_blank')}
@@ -503,7 +505,7 @@ const ContactPage = () => {
     { name: 'YouTube', icon: '📺', url: '#', description: 'Watch product demonstrations' },
     { name: 'Twitter/X', icon: '🐦', url: '#', description: 'Latest updates and news' },
   ];
-
+console.log("This website was made by @jebsterr on discord!")
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -730,4 +732,5 @@ function App() {
   );
 }
 
+// @jebsterr made this
 export default App;
